@@ -1,36 +1,39 @@
 import { Injectable } from '@nestjs/common';
-import { ITodo } from './interfaces/todo';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TodoEntity } from '../entities/todo.entity';
+import { CreateTodoInput } from './inputs/create-todo.input';
 
 @Injectable()
 export class TodoService {
-  private todos: ITodo[] = [];
+  constructor(
+    @InjectRepository(TodoEntity)
+    private readonly todoRepository: Repository<TodoEntity>,
+  ) {}
 
-  getTodos(): ITodo[] {
-    return this.todos;
+  async getTodos(): Promise<TodoEntity[]> {
+    return await this.todoRepository.find();
   }
 
-  createTodo(title: string): ITodo[] {
-    const newTodo = {
-      id: Date.now(),
-      title: title,
-      completed: false,
-    };
-    this.todos.push(newTodo);
-
-    return this.todos;
+  async createTodo(todoInput: CreateTodoInput): Promise<TodoEntity[]> {
+    await this.todoRepository.save({ ...todoInput });
+    return await this.getTodos();
   }
 
-  deleteTodo(id: string): ITodo[] {
-    this.todos = this.todos.filter((todo) => todo.id !== Number(id));
-
-    return this.todos;
+  async deleteTodo(id: number): Promise<TodoEntity[]> {
+    await this.todoRepository.delete({ id });
+    return await this.getTodos();
   }
 
-  updateTodo(id: string): ITodo[] {
-    this.todos = this.todos.map((todo) =>
-      todo.id === Number(id) ? { ...todo, completed: !todo.completed } : todo,
-    );
+  async updateTodo(id: number): Promise<TodoEntity[]> {
+    const todo = await this.getTodoById(id);
+    await this.todoRepository.update({ id }, { completed: !todo.completed });
+    return await this.getTodos();
+  }
 
-    return this.todos;
+  private async getTodoById(id: number): Promise<TodoEntity> {
+    return await this.todoRepository.findOne({
+      where: { id },
+    });
   }
 }
