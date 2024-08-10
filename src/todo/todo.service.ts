@@ -1,44 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Todo } from '../schemas/Todo.schema';
 import { ITodo } from './interfaces/todo';
 
 @Injectable()
 export class TodoService {
   private todos: ITodo[] = [];
 
-  constructor(
-    @InjectModel(Todo.name) private readonly todoModel: Model<Todo>,
-  ) {}
-
-  getTodos() {
-    return this.todoModel.find();
+  getTodos(): ITodo[] {
+    return this.todos;
   }
 
-  async createTodo(title: string) {
-    const newRecord = {
+  createTodo(title: string): ITodo[] {
+    const newTodo = {
       id: Date.now(),
       title: title,
       completed: false,
     };
-    const newTodo = new this.todoModel(newRecord);
-    await newTodo.save();
-    return this.todoModel.find();
+    this.todos.push(newTodo);
+
+    return this.todos;
   }
 
-  async deleteTodo(id: string) {
-    await this.todoModel.findOneAndDelete({ id });
-    return this.todoModel.find().exec();
+  deleteTodo(id: string): ITodo[] {
+    this.todos = this.todos.filter((todo) => todo.id !== Number(id));
+
+    return this.todos;
   }
 
-  async updateTodo(id: string, completed: boolean) {
-    await this.todoModel.findOneAndUpdate(
-      { id },
-      {
-        completed,
-      },
+  updateTodo(id: string): ITodo[] {
+    this.todos = this.todos.map((todo) =>
+      todo.id === Number(id) ? { ...todo, completed: !todo.completed } : todo,
     );
-    return this.todoModel.find().exec();
+
+    return this.todos;
   }
 }
