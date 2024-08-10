@@ -4,12 +4,15 @@
 
 # Logs
 logs
+.env
 *.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+schema.gql
+pgdata
 
 # OS
 .DS_Store
