@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthorizationGuard } from '../authorization/authorization.guard';
 import { TodoEntity } from '../entities/todo.entity';
 import { CreateTodoInput } from './inputs/create-todo.input';
 import { TodoResolver } from './todo.resolver';
@@ -15,6 +17,7 @@ import { TodoResolver } from './todo.resolver';
 export class TodoController {
   constructor(private readonly todoResolver: TodoResolver) {}
 
+  @UseGuards(AuthorizationGuard)
   @Get()
   async getTodos(): Promise<TodoEntity[]> {
     return await this.todoResolver.getTodos();
