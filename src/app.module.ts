@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TodoModule } from './todo/todo.module';
+import { AuthorizationModule } from './authorization/authorization.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { TodoModule } from './todo/todo.module';
       }),
     }),
     TodoModule,
+    AuthorizationModule,
   ],
 })
 export class AppModule {}
