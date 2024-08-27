@@ -17,7 +17,7 @@ import { TodoResolver } from './todo.resolver';
 export class TodoController {
   constructor(private readonly todoResolver: TodoResolver) {}
 
-  //TODO: Implement middleware to check if user is authorized to access
+  //TODO: Implement middleware to check if user is authorized to access. Test
   @UseGuards(AuthorizationGuard)
   @Get('/:id')
   async getTodos(@Param('id') userId: string): Promise<TodoEntity[]> {
