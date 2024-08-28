@@ -9,29 +9,28 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthorizationGuard } from '../authorization/authorization.guard';
+import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoEntity } from './entities/todo.entity';
-import { CreateTodoInput } from './inputs/create-todo.input';
-import { TodoResolver } from './todo.resolver';
+import { TodoService } from './todo.service';
 
 @Controller('todo')
 export class TodoController {
-  constructor(private readonly todoResolver: TodoResolver) {}
+  constructor(private readonly todoService: TodoService) {}
 
   //TODO: Implement middleware to check if user is authorized to access.
   @UseGuards(AuthorizationGuard)
   @Get('/:userId')
   async getTodos(@Param('userId') userId: string): Promise<TodoEntity[]> {
-    return await this.todoResolver.getTodos(userId);
+    return await this.todoService.getTodos(userId);
   }
 
   @UseGuards(AuthorizationGuard)
   @Post('/:userId')
   async createTodo(
-    @Body()
-    title: CreateTodoInput,
+    @Body() title: CreateTodoDto,
     @Param('userId') userId: string,
   ): Promise<TodoEntity[]> {
-    return await this.todoResolver.createTodo(title, userId);
+    return await this.todoService.createTodo(title, userId);
   }
 
   @UseGuards(AuthorizationGuard)
@@ -40,7 +39,7 @@ export class TodoController {
     @Param('userId') userId: string,
     @Param('id') id: string,
   ): Promise<TodoEntity[]> {
-    return this.todoResolver.deleteTodo(userId, Number(id));
+    return this.todoService.deleteTodo(userId, Number(id));
   }
 
   @UseGuards(AuthorizationGuard)
@@ -49,6 +48,6 @@ export class TodoController {
     @Param('userId') userId: string,
     @Param('id') id: string,
   ): Promise<TodoEntity[]> {
-    return this.todoResolver.updateTodo(userId, Number(id));
+    return this.todoService.updateTodo(userId, Number(id));
   }
 }
