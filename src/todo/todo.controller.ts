@@ -19,17 +19,17 @@ export class TodoController {
 
   //TODO: Implement middleware to check if user is authorized to access.
   @UseGuards(AuthorizationGuard)
-  @Get('/:id')
-  async getTodos(@Param('id') userId: string): Promise<TodoEntity[]> {
+  @Get('/:userId')
+  async getTodos(@Param('userId') userId: string): Promise<TodoEntity[]> {
     return await this.todoResolver.getTodos(userId);
   }
 
   @UseGuards(AuthorizationGuard)
-  @Post('/:id')
+  @Post('/:userId')
   async createTodo(
     @Body()
     title: CreateTodoInput,
-    @Param('id') userId: string,
+    @Param('userId') userId: string,
   ): Promise<TodoEntity[]> {
     return await this.todoResolver.createTodo(title, userId);
   }

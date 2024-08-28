@@ -14,7 +14,7 @@ export class TodoService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async getTodos(userId?: string): Promise<TodoEntity[]> {
+  async getTodos(userId: string): Promise<TodoEntity[]> {
     const user = await this.getUserById(userId);
 
     return await this.todoRepository.find({

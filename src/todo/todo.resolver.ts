@@ -8,19 +8,19 @@ export class TodoResolver {
   constructor(private readonly todoService: TodoService) {}
 
   @Query(() => [TodoEntity])
-  async getTodos(userId: string): Promise<TodoEntity[]> {
+  async getTodos(@Args('userId') userId: string): Promise<TodoEntity[]> {
     return await this.todoService.getTodos(userId);
   }
 
-  @Mutation(() => TodoEntity)
+  @Mutation(() => [TodoEntity])
   async createTodo(
     @Args('createTodo') createTodoInput: CreateTodoInput,
-    userId: string,
+    @Args('userId') userId: string,
   ): Promise<TodoEntity[]> {
     return await this.todoService.createTodo(createTodoInput, userId);
   }
 
-  @Mutation(() => Number)
+  @Mutation(() => [TodoEntity])
   async deleteTodo(
     @Args('userId') userId: string,
     @Args('id') id: number,
@@ -28,7 +28,7 @@ export class TodoResolver {
     return await this.todoService.deleteTodo(userId, id);
   }
 
-  @Mutation(() => TodoEntity)
+  @Mutation(() => [TodoEntity])
   async updateTodo(
     @Args('userId') userId: string,
     @Args('id') id: number,
