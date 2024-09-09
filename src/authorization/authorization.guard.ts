@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { expressjwt } from 'express-jwt';
+import { decode } from 'jsonwebtoken';
 import { expressJwtSecret } from 'jwks-rsa';
 import { promisify } from 'util';
 
@@ -20,8 +21,8 @@ export class AuthorizationGuard implements CanActivate {
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const req = context.getArgByIndex(0);
-    const res = context.getArgByIndex(1);
+    const req = context.switchToHttp().getRequest();
+    const res = context.switchToHttp().getResponse();
 
     const checkJwt = promisify(
       expressjwt({
@@ -39,6 +40,20 @@ export class AuthorizationGuard implements CanActivate {
 
     try {
       await checkJwt(req, res);
+      const authHeader = req.headers.authorization;
+
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        throw new UnauthorizedException('No JWT token found');
+      }
+
+      const token = authHeader.split(' ')[1];
+      const decodedToken = decode(token) as any;
+
+      if (!decodedToken) {
+        throw new UnauthorizedException('Invalid JWT token');
+      }
+
+      req.userId = decodedToken.sub.split('|')[1];
       return true;
     } catch (error) {
       throw new UnauthorizedException(error);
