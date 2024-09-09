@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
-import { CreateUserInput } from './inputs/create-user.input';
 
 @Injectable()
 export class UserService {
@@ -11,7 +10,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async createUser({ userId }: CreateUserInput): Promise<UserEntity> {
+  async createUser(userId: string): Promise<UserEntity> {
     const user = await this.getUserById(userId);
     if (user) {
       return user;
