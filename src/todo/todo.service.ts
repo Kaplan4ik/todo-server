@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/entities/user.entity';
+import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoEntity } from './entities/todo.entity';
-import { CreateTodoInput } from './inputs/create-todo.input';
 
 @Injectable()
 export class TodoService {
@@ -23,7 +23,7 @@ export class TodoService {
   }
 
   async createTodo(
-    todoInput: CreateTodoInput,
+    todoInput: CreateTodoDto,
     userId: string,
   ): Promise<TodoEntity[]> {
     const user = await this.getUserById(userId);
