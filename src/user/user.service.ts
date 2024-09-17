@@ -10,7 +10,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async createUser(userId: string): Promise<UserEntity> {
+  async currentUser(userId: string): Promise<UserEntity> {
     const user = await this.getUserById(userId);
     if (user) {
       return user;

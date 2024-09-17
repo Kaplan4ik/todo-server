@@ -8,9 +8,11 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  //TODO: Create interface for request
   @Get()
-  async createUser(@Req() request: any): Promise<UserEntity> {
+  async currentUser(@Req() request: any): Promise<UserEntity> {
     const userId = request.userId;
-    return await this.userService.createUser(userId);
+
+    return await this.userService.currentUser(userId);
   }
 }

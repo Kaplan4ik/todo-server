@@ -19,6 +19,7 @@ import { TodoService } from './todo.service';
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
+  //TODO: Create interface for request
   @Get()
   async getTodos(@Req() request: any): Promise<TodoEntity[]> {
     const userId = request.userId;
