@@ -12,4 +12,21 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
-      - ${TYPEORM_PORT}:${TYPEORM_PORT}
+      - '5432:5432'
+
+  nestjs:
+    container_name: nestjs-todo
+    build:
+      context: ../../../Desktop
+      dockerfile: ../../../Desktop/Dockerfile
+    restart: always
+    environment:
+      TYPEORM_HOST: db
+      TYPEORM_PORT: 5432
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_DATABASE: ${TYPEORM_DATABASE}
+    ports:
+      - '3001:3001'
+    depends_on:
+      - db
