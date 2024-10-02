@@ -15,7 +15,7 @@ export class AuthorizationGuard implements CanActivate {
   private readonly AUTH0_AUDIENCE: string;
   private readonly AUTH0_DOMAIN: string;
 
-  constructor(private configService: ConfigService) {
+  constructor(private readonly configService: ConfigService) {
     this.AUTH0_AUDIENCE = this.configService.get<string>('AUTH0_AUDIENCE');
     this.AUTH0_DOMAIN = this.configService.get<string>('AUTH0_DOMAIN');
   }
@@ -42,7 +42,7 @@ export class AuthorizationGuard implements CanActivate {
       await checkJwt(req, res);
       const authHeader = req.headers.authorization;
 
-      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      if (!authHeader?.startsWith('Bearer ')) {
         throw new UnauthorizedException('No JWT token found');
       }
 
