@@ -1,8 +1,8 @@
-FROM node:16-alpine
+FROM node:21-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
-COPY ../../../Desktop .
+COPY . .
 RUN npm run build
 EXPOSE 3001
 CMD ["npm", "run", "start:prod"]

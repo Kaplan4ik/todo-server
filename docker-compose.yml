@@ -17,8 +17,8 @@ services:
   nestjs:
     container_name: nestjs-todo
     build:
-      context: ../../../Desktop
-      dockerfile: ../../../Desktop/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     restart: always
     environment:
       TYPEORM_HOST: db
