@@ -13,12 +13,13 @@ import { UserModule } from './user/user.module';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('TYPEORM_HOST'),
-        username: configService.get<string>('TYPEORM_USERNAME'),
-        password: configService.get<string>('TYPEORM_PASSWORD'),
-        database: configService.get<string>('TYPEORM_DATABASE'),
-        port: configService.get<number>('TYPEORM_PORT'),
+        host: configService.get<string>('DB_HOST'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_DATABASE'),
+        port: configService.get<number>('DB_PORT'),
         entities: [__dirname + '/**/*.entity{.ts}'],
+        // TODO: Remove after deployment
         synchronize: true,
         autoLoadEntities: true,
         logging: true,
