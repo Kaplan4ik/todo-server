@@ -48,7 +48,7 @@ jobs:
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/todo/todo-server:latest
 
       - name: Deploy to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ecs-task-definition.json
           service: kaplan-todo-service
