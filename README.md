@@ -25,7 +25,7 @@ The application connects to a PostgreSQL database, allowing users to create, rea
 
 ## Installation
 
-- Clone the repository
+- Clone the repository.
 - Install the dependencies with `npm install`
 - Create a `.env` file in the root of the project ( ideally by copying `.env.example` ).
 
