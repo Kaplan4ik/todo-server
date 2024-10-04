@@ -54,3 +54,5 @@ jobs:
           service: kaplan-todo-service
           cluster: kaplan-todo-server
           wait-for-service-stability: true
+        env:
+          AWS_REGION: eu-north-1
