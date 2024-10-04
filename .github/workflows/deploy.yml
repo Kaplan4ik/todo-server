@@ -54,5 +54,16 @@ jobs:
           service: kaplan-todo-service
           cluster: kaplan-todo-server
           wait-for-service-stability: true
+          substitutions: |
+            AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}
+            AWS_REGION=${{ vars.AWS_REGION }}
+            API_PORT=${{ vars.API_PORT }}
+            DB_HOST=${{ vars.DB_HOST }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DB_DATABASE=${{ vars.DB_DATABASE }}
+            DB_PORT=${{ vars.DB_PORT }}
+            AUTH0_AUDIENCE=${{ secrets.AUTH0_AUDIENCE }}
+            AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }}
         env:
           AWS_REGION: eu-north-1
