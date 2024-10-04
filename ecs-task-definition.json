@@ -1,9 +1,9 @@
 {
-  "family": "my-ecs-task",
+  "family": "todo-server-task",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
-      "name": "my-app-container",
+      "name": "kaplan-todo-server",
       "image": "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/todo/todo-server:latest",
       "essential": true,
       "memory": 512,
