@@ -29,7 +29,7 @@ The application connects to a PostgreSQL database, allowing users to create, rea
 - Install the dependencies with `npm install`
 - Create a `.env` file in the root of the project ( ideally by copying `.env.example` ).
 
-> [!WARNING]
+> [!WARNING!]
 > Without the required environment variables, the project will not run. Please ensure that you have the necessary values in your `.env` file.
 
 - Install husky hooks with `npm prepare`
