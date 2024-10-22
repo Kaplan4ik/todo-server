@@ -15,7 +15,7 @@ import { TodoEntity } from './entities/todo.entity';
 import { TodoService } from './todo.service';
 
 @UseGuards(AuthorizationGuard)
-@Controller('todo')
+@Controller('api/todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
