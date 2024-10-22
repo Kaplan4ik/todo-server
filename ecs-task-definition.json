@@ -6,6 +6,14 @@
       "name": "kaplan-todo-server",
       "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/todo/todo-server:latest",
       "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/todo-server-task",
+          "awslogs-region": "eu-north-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
       "memory": 512,
       "cpu": 256,
       "portMappings": [
