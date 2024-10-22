@@ -64,7 +64,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ecs-task-definition.json
-          service: kaplan-todo-service
+          service: lb-service
           cluster: kaplan-todo-server
           wait-for-service-stability: true
         env:

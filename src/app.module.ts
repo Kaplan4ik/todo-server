@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthorizationModule } from './authorization/authorization.module';
 import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
+import { HealthCheckModule } from './health-check/health-check.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UserModule } from './user/user.module';
     TodoModule,
     AuthorizationModule,
     UserModule,
+    HealthCheckModule,
   ],
 })
 export class AppModule {}
