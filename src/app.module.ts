@@ -25,10 +25,6 @@ import { HealthCheckModule } from './health-check/health-check.module';
         synchronize: true,
         autoLoadEntities: true,
         logging: true,
-        // TODO: Try to find better solution
-        ssl: {
-          rejectUnauthorized: false,
-        },
       }),
     }),
     TodoModule,
