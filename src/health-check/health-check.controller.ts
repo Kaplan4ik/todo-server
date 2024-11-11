@@ -1,9 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('health-check')
 export class HealthCheckController {
+  constructor(private configService: ConfigService) {}
   @Get()
   async healthCheck(): Promise<string> {
-    return 'Health check is OK!!!!';
+    const test = this.configService.get<string>('DB_HOST');
+    return `Health check is OK!!!! - ${test}`;
   }
 }
