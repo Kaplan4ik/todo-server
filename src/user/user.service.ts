@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
@@ -11,18 +11,13 @@ export class UserService {
   ) {}
 
   async currentUser(userId: string): Promise<UserEntity> {
-    try {
-      const user = await this.getUserById(userId);
-      if (user) {
-        return user;
-      }
-
-      await this.userRepository.save({ auth_user_id: userId });
-      return await this.getUserById(userId);
-    } catch (e) {
-      console.error('Error fetching todos:', e);
-      throw new InternalServerErrorException('Could not fetch user');
+    const user = await this.getUserById(userId);
+    if (user) {
+      return user;
     }
+
+    await this.userRepository.save({ auth_user_id: userId });
+    return await this.getUserById(userId);
   }
 
   private async getUserById(userId: string): Promise<UserEntity> {
